@@ -25,7 +25,9 @@ dependencies {
 ```
 <br>
 ### Only modules you need
+
 **CORE is needed**
+
 ```gradle
 dependencies {
     ...
@@ -37,6 +39,7 @@ dependencies {
 Other modules (implement what you need)
 
 **FirebaseAuth**
+
 [Documentation](https://github.com/interaapps/FirebaseManager-Android/blob/master/firebaseManager-auth/README.md "Documentation")
 ```gradle
  implementation 'com.github.Interaapps.FirebaseManager-Android:firebaseManager-auth:$latestVersion'
