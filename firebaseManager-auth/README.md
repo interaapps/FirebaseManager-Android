@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseManager = new FirebaseManager(this);
         googleAuth = new GoogleAuth(getActivity(), getString(R.string.default_web_client_id));
+        firebaseManager.addLogin(googleAuth);
         
         googleButton = findViewById(R.id.google_button);
         googleButton.setOnClickListener(new View.OnClickListener() {

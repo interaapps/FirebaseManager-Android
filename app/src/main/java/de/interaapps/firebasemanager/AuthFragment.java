@@ -56,6 +56,7 @@ public class AuthFragment extends Fragment {
     }
 
     private void initLogic() {
+        firebaseManager.addLogin(googleAuth);
         googleAuth = new GoogleAuth(getActivity(), getString(R.string.default_web_client_id));
         oAuth = new OAuth(getActivity(), OAuthEnum.GITHUB);
 
