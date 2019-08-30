@@ -15,7 +15,8 @@ allprojects {
 ```
 Then add the dependency in your project build.gradle
 
-**$latestVersion = ** [![](https://jitpack.io/v/Interaapps/FirebaseManager-Android.svg)](https://jitpack.io/#Interaapps/FirebaseManager-Android)
+$latestVersion = [![](https://jitpack.io/v/Interaapps/FirebaseManager-Android.svg)](https://jitpack.io/#Interaapps/FirebaseManager-Android)
+
 ### All modules
 ```gradle
 dependencies {
@@ -38,6 +39,7 @@ dependencies {
 Other modules (implement what you need)
 
 **FirebaseAuth**
+
 [Documentation](https://github.com/interaapps/FirebaseManager-Android/blob/master/firebaseManager-auth/README.md "Documentation")
 ```gradle
  implementation 'com.github.Interaapps.FirebaseManager-Android:firebaseManager-auth:$latestVersion'
