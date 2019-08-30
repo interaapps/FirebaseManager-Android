@@ -1,0 +1,2 @@
+include ':app', ':firebaseManager-core', ':firebaseManager-auth'
+rootProject.name='FirebaseManagerExample'
