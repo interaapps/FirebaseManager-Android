@@ -14,7 +14,6 @@ public class FirebaseManager {
 
     private Activity activity;
     private FirebaseAuth firebaseAuth;
-    private Auth auth;
     private ArrayList<Auth> usedAuthSystems = new ArrayList<>();
 
     public FirebaseManager(Activity activity) {
@@ -37,30 +36,17 @@ public class FirebaseManager {
 
     private void init() {
         FirebaseApp.initializeApp(activity);
-        initAuth();
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     private void init(FirebaseOptions firebaseOptions) {
         FirebaseApp.initializeApp(activity, firebaseOptions);
-        initAuth();
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     private void init(FirebaseOptions firebaseOptions, String name) {
         FirebaseApp.initializeApp(activity, firebaseOptions, name);
-        initAuth();
-    }
-
-    private void initAuth() {
         firebaseAuth = FirebaseAuth.getInstance();
-        auth = new Auth(firebaseAuth);
-    }
-
-    public void setAuth(Auth auth) {
-        this.auth = auth;
-    }
-
-    public Auth getAuth() {
-        return auth;
     }
 
     public void addLogin(Auth loginSystem) {
@@ -72,11 +58,13 @@ public class FirebaseManager {
     }
 
     public void onStart() {
-        if (auth.getAuth() != null) {
-            auth.setUser(auth.getAuth().getCurrentUser());
-        } else if (firebaseAuth != null) {
-            auth.setAuth(firebaseAuth);
-            auth.setUser(firebaseAuth.getCurrentUser());
+        for (Auth auth : getLogin().toArray(new Auth[0])) {
+            if (auth.getAuth() != null) {
+                auth.setUser(auth.getAuth().getCurrentUser());
+            } else if (firebaseAuth != null) {
+                auth.setAuth(firebaseAuth);
+                auth.setUser(firebaseAuth.getCurrentUser());
+            }
         }
     }
 }
