@@ -97,6 +97,32 @@ public class GoogleAuth extends Auth {
         }
     }
 
+    public void revokeAccess(final RevokeAccessCallbacks revokeAccessCallbacks) {
+        mGoogleSignInClient.revokeAccess()
+                .addOnSuccessListener(activity, new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        revokeAccessCallbacks.onRevokeAccessSuccessful();
+                    }
+                })
+                .addOnFailureListener(activity, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        revokeAccessCallbacks.onRevokeAccessFailed(e);
+                    }
+                });
+    }
+
+    public GoogleSignInClient getGoogleSignInClient() {
+        return mGoogleSignInClient;
+    }
+
+    public interface RevokeAccessCallbacks {
+        void onRevokeAccessSuccessful();
+
+        void onRevokeAccessFailed(Exception exception);
+    }
+
     public interface LoginCallbacks {
         void onLoginSuccessful(@Nullable AuthResult authResult);
 
