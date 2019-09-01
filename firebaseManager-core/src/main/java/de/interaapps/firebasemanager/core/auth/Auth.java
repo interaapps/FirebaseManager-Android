@@ -3,6 +3,7 @@ package de.interaapps.firebasemanager.core.auth;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,7 +39,7 @@ public class Auth {
         return auth;
     }
 
-    public void setUser(FirebaseUser user) {
+    public void setUser(@Nullable FirebaseUser user) {
         this.user = user;
     }
 
@@ -292,6 +293,11 @@ public class Auth {
                         }
                     }
                 });
+    }
+
+    public void signOut() {
+        getAuth().signOut();
+        setUser(null);
     }
 
     public interface ChangePasswordCallbacks {
