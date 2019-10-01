@@ -1,9 +1,15 @@
 package de.interaapps.firebasemanager.core;
 
 import android.app.Activity;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -57,14 +63,43 @@ public class FirebaseManager {
         return usedAuthSystems;
     }
 
-    public void onStart() {
-        for (Auth auth : getLogin().toArray(new Auth[0])) {
-            if (auth.getAuth() != null) {
-                auth.setUser(auth.getAuth().getCurrentUser());
-            } else if (firebaseAuth != null) {
-                auth.setAuth(firebaseAuth);
-                auth.setUser(firebaseAuth.getCurrentUser());
-            }
+    public void setAuthResultData(AuthResult authResults) {
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        for (Auth auth : getLogin()) {
+            auth.setAuth(firebaseAuth);
+            auth.setUser(authResults.getUser());
+            auth.setAuthResult(authResults);
         }
+    }
+
+    public void setAuthData(FirebaseAuth firebaseAuth) {
+        for (Auth auth : getLogin()) {
+            auth.setAuth(firebaseAuth);
+            auth.setUser(firebaseAuth.getCurrentUser());
+        }
+    }
+
+    public void onStart() {
+        Task<AuthResult> pendingResultTask = firebaseAuth.getPendingAuthResult();
+        if (pendingResultTask != null) {
+            pendingResultTask
+                    .addOnSuccessListener(
+                            new OnSuccessListener<AuthResult>() {
+                                @Override
+                                public void onSuccess(AuthResult authResult) {
+                                    setAuthResultData(authResult);
+                                }
+                            });
+        } else {
+            setAuthData(firebaseAuth);
+        }
+
+        FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                setAuthData(firebaseAuth);
+            }
+        });
     }
 }

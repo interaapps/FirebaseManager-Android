@@ -20,6 +20,7 @@ public class Auth {
 
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private AuthResult authResult;
     private boolean accountExists = false;
 
     public Auth() {
@@ -43,8 +44,21 @@ public class Auth {
         this.user = user;
     }
 
+    public void setAuthResult(AuthResult authResult) {
+        this.authResult = authResult;
+    }
+
+    public AuthResult getAuthResult() {
+        return authResult;
+    }
+
     public FirebaseUser getUser() {
         return user;
+    }
+
+    public void setAuthResultData(@NotNull AuthResult authResult) {
+        setUser(authResult.getUser());
+        setAuthResult(authResult);
     }
 
     public boolean accountExists(String email) {

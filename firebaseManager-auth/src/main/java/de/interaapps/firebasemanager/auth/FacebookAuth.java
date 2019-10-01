@@ -62,7 +62,7 @@ public class FacebookAuth extends Auth {
                 .addOnSuccessListener(activity, new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        setUser(authResult.getUser());
+                        setAuthResultData(authResult);
                         loginCallback.onLoginSuccessful(authResult);
                     }
                 })

@@ -59,7 +59,7 @@ public class OAuth extends Auth {
                             new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
-                                    setUser(authResult.getUser());
+                                    setAuthResultData(authResult);
                                     loginCallbacks.onLoginSuccessful(authResult);
                                 }
                             })
@@ -84,7 +84,7 @@ public class OAuth extends Auth {
                             new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
-                                    setUser(authResult.getUser());
+                                    setAuthResultData(authResult);
                                     loginCallbacks.onLoginSuccessful(authResult);
                                 }
                             })
@@ -104,7 +104,7 @@ public class OAuth extends Auth {
                         new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
-                                setUser(authResult.getUser());
+                                setAuthResultData(authResult);
                                 loginCallbacks.onLoginSuccessful(authResult);
                             }
                         })
@@ -123,7 +123,7 @@ public class OAuth extends Auth {
                         new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
-                                setUser(authResult.getUser());
+                                setAuthResultData(authResult);
                                 loginCallbacks.onLoginSuccessful(authResult);
                             }
                         })
@@ -143,7 +143,7 @@ public class OAuth extends Auth {
                         new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
-                                setUser(authResult.getUser());
+                                setAuthResultData(authResult);
                                 loginCallbacks.onLoginSuccessful(authResult);
                             }
                         })
@@ -162,7 +162,7 @@ public class OAuth extends Auth {
                         new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
-                                setUser(authResult.getUser());
+                                setAuthResultData(authResult);
                                 loginCallbacks.onLoginSuccessful(authResult);
                             }
                         })

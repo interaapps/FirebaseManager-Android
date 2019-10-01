@@ -23,7 +23,7 @@ public class EmailAuth extends Auth {
                 .addOnSuccessListener(activity, new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        setUser(authResult.getUser());
+                        setAuthResultData(authResult);
                         createEmailCallbacks.onEmailCreatedSuccessful(authResult);
                     }
                 })
@@ -40,7 +40,7 @@ public class EmailAuth extends Auth {
                 .addOnSuccessListener(activity, new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        setUser(authResult.getUser());
+                        setAuthResultData(authResult);
                         loginEmailCallbacks.onEmailLoginSuccessful(authResult);
                     }
                 })

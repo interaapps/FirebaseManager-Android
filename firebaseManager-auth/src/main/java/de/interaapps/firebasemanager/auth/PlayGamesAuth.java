@@ -56,7 +56,7 @@ public class PlayGamesAuth extends Auth {
                 .addOnSuccessListener(activity, new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        logoutCallbacks.onLogoutSuccessful();
+                        logoutCallbacks.onLogoutSuccessful(aVoid);
                     }
                 })
                 .addOnFailureListener(activity, new OnFailureListener() {
@@ -73,6 +73,7 @@ public class PlayGamesAuth extends Auth {
                 .addOnSuccessListener(activity, new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
+                        setAuthResultData(authResult);
                         loginCallbacks.onLoginSuccessful(authResult);
                     }
                 })
@@ -103,7 +104,7 @@ public class PlayGamesAuth extends Auth {
     }
 
     public interface LogoutCallbacks {
-        void onLogoutSuccessful();
+        void onLogoutSuccessful(Void aVoid);
 
         void onLogoutFailed(Exception exception);
     }

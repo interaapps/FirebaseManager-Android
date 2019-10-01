@@ -73,7 +73,7 @@ public class GoogleAuth extends Auth {
                 .addOnSuccessListener(activity, new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        setUser(authResult.getUser());
+                        setAuthResultData(authResult);
                         loginCallbacks.onLoginSuccessful(authResult);
                     }
                 })
@@ -102,7 +102,7 @@ public class GoogleAuth extends Auth {
                 .addOnSuccessListener(activity, new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        revokeAccessCallbacks.onRevokeAccessSuccessful();
+                        revokeAccessCallbacks.onRevokeAccessSuccessful(aVoid);
                     }
                 })
                 .addOnFailureListener(activity, new OnFailureListener() {
@@ -118,7 +118,7 @@ public class GoogleAuth extends Auth {
     }
 
     public interface RevokeAccessCallbacks {
-        void onRevokeAccessSuccessful();
+        void onRevokeAccessSuccessful(Void aVoid);
 
         void onRevokeAccessFailed(Exception exception);
     }

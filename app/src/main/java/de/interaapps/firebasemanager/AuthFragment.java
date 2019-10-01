@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.UserInfo;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -21,6 +22,7 @@ import de.interaapps.firebasemanager.auth.GoogleAuth;
 import de.interaapps.firebasemanager.auth.OAuth;
 import de.interaapps.firebasemanager.auth.OAuthEnum;
 import de.interaapps.firebasemanager.core.FirebaseManager;
+import de.interaapps.firebasemanager.core.auth.Auth;
 
 public class AuthFragment extends Fragment {
 
@@ -56,8 +58,8 @@ public class AuthFragment extends Fragment {
     }
 
     private void initLogic() {
-        firebaseManager.addLogin(googleAuth);
         googleAuth = new GoogleAuth(getActivity(), getString(R.string.default_web_client_id));
+        firebaseManager.addLogin(googleAuth);
         oAuth = new OAuth(getActivity(), OAuthEnum.GITHUB);
 
         googleButton.setOnClickListener(new View.OnClickListener() {
