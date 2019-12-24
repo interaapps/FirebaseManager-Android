@@ -11,95 +11,52 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
 import de.interaapps.firebasemanager.core.auth.Auth;
+import de.interaapps.firebasemanager.core.auth.AuthManager;
+import de.interaapps.firebasemanager.core.auth.ProviderEnum;
+import lombok.Getter;
 
 public class FirebaseManager {
 
     private Activity activity;
-    private FirebaseAuth firebaseAuth;
-    private ArrayList<Auth> usedAuthSystems = new ArrayList<>();
+    @Getter
+    private AuthManager authManager;
 
     public FirebaseManager(Activity activity) {
         this.activity = activity;
-
+        authManager = new AuthManager(activity);
         init();
     }
 
     public FirebaseManager(Activity activity, FirebaseOptions firebaseOptions) {
         this.activity = activity;
-
+        authManager = new AuthManager(activity);
         init(firebaseOptions);
     }
 
     public FirebaseManager(Activity activity, FirebaseOptions firebaseOptions, String name) {
         this.activity = activity;
-
+        authManager = new AuthManager(activity);
         init(firebaseOptions, name);
     }
 
     private void init() {
         FirebaseApp.initializeApp(activity);
-        firebaseAuth = FirebaseAuth.getInstance();
+        authManager.init();
     }
 
     private void init(FirebaseOptions firebaseOptions) {
         FirebaseApp.initializeApp(activity, firebaseOptions);
-        firebaseAuth = FirebaseAuth.getInstance();
+        authManager.init();
     }
 
     private void init(FirebaseOptions firebaseOptions, String name) {
         FirebaseApp.initializeApp(activity, firebaseOptions, name);
-        firebaseAuth = FirebaseAuth.getInstance();
+        authManager.init();
     }
 
-    public void addLogin(Auth loginSystem) {
-        usedAuthSystems.add(loginSystem);
-    }
-
-    public ArrayList<Auth> getLogin() {
-        return usedAuthSystems;
-    }
-
-    public void setAuthResultData(AuthResult authResults) {
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        for (Auth auth : getLogin()) {
-            auth.setAuth(firebaseAuth);
-            auth.setUser(authResults.getUser());
-            auth.setAuthResult(authResults);
-        }
-    }
-
-    public void setAuthData(FirebaseAuth firebaseAuth) {
-        for (Auth auth : getLogin()) {
-            auth.setAuth(firebaseAuth);
-            auth.setUser(firebaseAuth.getCurrentUser());
-        }
-    }
-
-    public void onStart() {
-        Task<AuthResult> pendingResultTask = firebaseAuth.getPendingAuthResult();
-        if (pendingResultTask != null) {
-            pendingResultTask
-                    .addOnSuccessListener(
-                            new OnSuccessListener<AuthResult>() {
-                                @Override
-                                public void onSuccess(AuthResult authResult) {
-                                    setAuthResultData(authResult);
-                                }
-                            });
-        } else {
-            setAuthData(firebaseAuth);
-        }
-
-        FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                setAuthData(firebaseAuth);
-            }
-        });
-    }
 }

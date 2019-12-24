@@ -59,7 +59,7 @@ public class AuthFragment extends Fragment {
 
     private void initLogic() {
         googleAuth = new GoogleAuth(getActivity(), getString(R.string.default_web_client_id));
-        firebaseManager.addLogin(googleAuth);
+        firebaseManager.getAuthManager().addLogin(googleAuth);
         oAuth = new OAuth(getActivity(), OAuthEnum.GITHUB);
 
         googleButton.setOnClickListener(new View.OnClickListener() {
