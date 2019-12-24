@@ -46,7 +46,7 @@ public class AuthManager {
 
     public ProviderEnum getProvider(FirebaseUser user) {
         if(user.getProviderData().size() > 1) {
-            checkProvider(user.getProviderData().get(1).getProviderId());
+            return checkProvider(user.getProviderData().get(1).getProviderId());
         }
         return ProviderEnum.ANONYM;
     }
@@ -55,7 +55,7 @@ public class AuthManager {
         FirebaseUser user = result.getUser();
         if (user != null) {
             if (user.getProviderData().size() > 1) {
-                checkProvider(user.getProviderData().get(1).getProviderId());
+                return checkProvider(user.getProviderData().get(1).getProviderId());
             }
         }
         return ProviderEnum.ANONYM;
@@ -64,15 +64,15 @@ public class AuthManager {
     private ProviderEnum checkProvider(String providerId) {
         if(providerId.equals(ProviderEnum.GOOGLE.getProviderId())) {
             return ProviderEnum.GOOGLE;
-        } else if (providerId.equals(ProviderEnum.EMAIL)) {
+        } else if (providerId.equals(ProviderEnum.EMAIL.getProviderId())) {
             return ProviderEnum.EMAIL;
-        } else if (providerId.equals(ProviderEnum.FACEBOOK)) {
+        } else if (providerId.equals(ProviderEnum.FACEBOOK.getProviderId())) {
             return ProviderEnum.FACEBOOK;
-        } else if (providerId.equals(ProviderEnum.MICROSOFT)) {
+        } else if (providerId.equals(ProviderEnum.MICROSOFT.getProviderId())) {
             return ProviderEnum.MICROSOFT;
-        } else if (providerId.equals(ProviderEnum.GITHUB)) {
+        } else if (providerId.equals(ProviderEnum.GITHUB.getProviderId())) {
             return ProviderEnum.GITHUB;
-        } else if (providerId.equals(ProviderEnum.TWITTER)) {
+        } else if (providerId.equals(ProviderEnum.TWITTER.getProviderId())) {
             return ProviderEnum.TWITTER;
         }
         return ProviderEnum.ANONYM;
